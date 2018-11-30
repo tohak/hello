@@ -3,14 +3,14 @@ package com.konovalov.hello.controller;
 import com.konovalov.hello.domain.Contacts;
 import com.konovalov.hello.service.ContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("contacts")
+@RequestMapping(value = "{contacts:/^[ A-Za-z0-9_@./#&+-]*$/}")
 public class ContactsController {
     private final ContactsService contactsService;
 
@@ -20,8 +20,8 @@ public class ContactsController {
     }
 
     @GetMapping
-    public List<Contacts> list() {
-        return contactsService.getAll();
+    public List<Contacts> getNameFilter(@RequestParam(value = "nameFilter",required = false, defaultValue = "") String nameFilter){
+        return contactsService.getByNameFilter(nameFilter);
     }
 
 }
