@@ -21,4 +21,8 @@ public class Contacts {
     @Length(max = 20)
     @Column(name = "name_contacts", nullable = false)
     private String name;
+
+    public Contacts(@Length(max = 20) String name) {
+        this.name = name;
+    }
 }

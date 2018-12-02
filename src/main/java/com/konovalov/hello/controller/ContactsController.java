@@ -1,16 +1,15 @@
 package com.konovalov.hello.controller;
 
 import com.konovalov.hello.domain.Contacts;
+import com.konovalov.hello.exceptions.BadRequestException;
 import com.konovalov.hello.service.ContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping(value = "{contacts:/^[ A-Za-z0-9_@./#&+-]*$/}")
+@RequestMapping("contacts")
 public class ContactsController {
     private final ContactsService contactsService;
 
@@ -20,8 +19,17 @@ public class ContactsController {
     }
 
     @GetMapping
-    public List<Contacts> getNameFilter(@RequestParam(value = "nameFilter",required = false, defaultValue = "") String nameFilter){
+    public List<Contacts> getNameFilter(@RequestParam(value = "nameFilter", required = false, defaultValue = "") String nameFilter) {
         return contactsService.getByNameFilter(nameFilter);
+    }
+
+    @PostMapping
+    public Contacts create(@RequestBody String contact) {
+        Contacts contacts = contactsService.createContact(contact);
+        if (contacts == null) {
+            throw new BadRequestException();
+        }
+        return contacts;
     }
 
 }
