@@ -50,7 +50,7 @@ public class ContactsService {
             if (contactBD == null) {
                 Contacts contacts = new Contacts(contact);
                 contactsRepository.save(contacts);
-                this.contactsList = contactsRepository.findAll();
+               this.contactsList = contactsRepository.findAll();
                 return contacts;
             }
         }

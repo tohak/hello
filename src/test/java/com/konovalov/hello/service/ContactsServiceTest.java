@@ -26,24 +26,27 @@ public class ContactsServiceTest {
     @Test
     public void getByNameFilter() {
         String filter = "^A.*$";
-        List<Contacts> contactsList = Arrays.asList(new Contacts("Anton"), new Contacts("Vlad"));
-        Mockito.doReturn(contactsList)
+        Mockito.doReturn(Arrays.asList(new Contacts("Anton"), new Contacts("Vlad")))
                 .when(contactsRepository)
                 .findAll();
 
         List<Contacts> result = contactsService.getByNameFilter(filter);
-        Assert.assertEquals(result.size(), 1);
-        Assert.assertEquals(result.get(0).getName(), "Anton");
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals("Anton", result.get(0).getName());
     }
 
     @Test
     public void createContact() {
         String contactName = "Vala";
+        Mockito.doReturn(Arrays.asList(new Contacts("Anton"), new Contacts("Vlad")))
+                .when(contactsRepository)
+                .findAll();
         Contacts contacts = contactsService.createContact(contactName);
 
         Assert.assertNotNull(contacts);
         Assert.assertNotNull(contacts.getName());
         Mockito.verify(contactsRepository, Mockito.times(1)).save(contacts);
+
     }
 
     @Test
