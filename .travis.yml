@@ -5,6 +5,7 @@ services:
 - mysql
 before_install:
 - chmod +x mvnw
+- mysql -e 'CREATE DATABASE test;'
 cache:
   directories:
   - $HOME/.m2
