@@ -32,7 +32,6 @@ public class ContactsServiceTest {
                 .findAll();
 
         List<Contacts> result = contactsService.getByNameFilter(filter);
-        Mockito.verify(contactsRepository, Mockito.times(1)).findAll();
         Assert.assertEquals(result.size(), 1);
         Assert.assertEquals(result.get(0).getName(), "Anton");
     }
