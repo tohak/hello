@@ -22,11 +22,11 @@ public class ContactsService {
         this.contactsRepository = contactsRepository;
     }
 
-    private List<Contacts> getAll() {
-        if (contactsList == null) {
+    public List<Contacts> getAll() {
+        if (this.contactsList == null) {
             this.contactsList = contactsRepository.findAll();
         }
-        return contactsList;
+        return this.contactsList;
     }
 
     public List<Contacts> getByNameFilter(String filter) {
