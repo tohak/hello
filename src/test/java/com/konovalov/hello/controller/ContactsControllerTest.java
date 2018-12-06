@@ -21,7 +21,12 @@ public class ContactsControllerTest {
 
     @Test
     public void getNameFilter() throws Exception {
-        mockMvc.perform(get("/contacts"))
+        mockMvc.perform(get("/contacts?nameFilter=allcontacts"))
                 .andExpect(status().isOk());
+    }
+    @Test
+    public void badGetNameFilter() throws Exception {
+        mockMvc.perform(get("/contacts?nameFilter="))
+                .andExpect(status().is4xxClientError());
     }
 }
