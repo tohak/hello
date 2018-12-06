@@ -22,7 +22,7 @@ public class ContactsService {
         this.contactsRepository = contactsRepository;
     }
 
-    public List<Contacts> getAll() {
+    public synchronized List<Contacts> getAll() {
         if (this.contactsList == null) {
             this.contactsList = contactsRepository.findAll();
         }
@@ -31,13 +31,14 @@ public class ContactsService {
 
     public List<Contacts> getByNameFilter(String filter) {
         List<Contacts> result;
-        if (StringUtils.isEmpty(filter)) {
+        if (filter.equals("allcontacts")) {
             result = getAll();
         } else {
             Pattern pattern = Pattern.compile(filter);
             result = getAll()
                     .stream()
                     .parallel()
+                    .filter(contact -> !filter.equals(contact.getName()))
                     .filter(contact -> pattern.matcher(contact.getName()).find())
                     .collect(Collectors.toList());
         }

@@ -19,7 +19,10 @@ public class ContactsController {
     }
 
     @GetMapping
-    public List<Contacts> getNameFilter(@RequestParam(value = "nameFilter", required = false, defaultValue = "") String nameFilter) {
+    public List<Contacts> getNameFilter(@RequestParam(value = "nameFilter") String nameFilter) {
+        if (nameFilter.isEmpty()) {
+            throw new BadRequestException();
+        }
         return contactsService.getByNameFilter(nameFilter);
     }
 
