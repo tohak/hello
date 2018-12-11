@@ -32,7 +32,7 @@ public class ContactsServiceTest {
 
         List<Contacts> result = contactsService.getByNameFilter(filter);
         Assert.assertEquals(1, result.size());
-        Assert.assertEquals("Anton", result.get(0).getName());
+        Assert.assertEquals("Vlad", result.get(0).getName());
     }
 
     @Test

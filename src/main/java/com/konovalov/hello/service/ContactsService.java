@@ -39,7 +39,7 @@ public class ContactsService {
                     .stream()
                     .parallel()
                     .filter(contact -> !filter.equals(contact.getName()))
-                    .filter(contact -> pattern.matcher(contact.getName()).find())
+                    .filter(contact -> !pattern.matcher(contact.getName()).find())
                     .collect(Collectors.toList());
         }
         return result;
